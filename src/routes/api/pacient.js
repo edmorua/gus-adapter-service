@@ -13,18 +13,19 @@ router.post(
   '/',
   async (req,res) => {
     let body = req.body;
+    console.log(body);
     if(!body.curp && !body.id ){
       return res.status(400).json({errors: [{msg: "Curp or Id is required"}]});
     }
     try{
       for(var i = 0; i < pacientes.length; i++){
         if(body.curp === pacientes[i].curp || body.id === pacientes[i].id){
-          return res.json({paciente: pacientes[id]});
+          return res.json({paciente: pacientes[i]});
         }
       }
       return res.status(400).json({errors: [{msg: "Pacient not found"}]})
     }catch(error){
-      console.error(err.message);
+      console.error(error.message);
       res.status(500).send('Server Error');
     }
   }
